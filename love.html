@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Love You Adu ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff4b5c, #ff758c);
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
+        text-align: center;
+        color: white;
+    }
+
+    .container {
+        z-index: 2;
+    }
+
+    h1 {
+        font-size: 3.5em;
+        margin: 0;
+        min-height: 1.2em;
+    }
+
+    p {
+        font-size: 1.4em;
+        margin-top: 20px;
+        opacity: 0;
+        animation: fadeIn 3s forwards;
+        animation-delay: 3s;
+    }
+
+    .names {
+        margin-top: 25px;
+        font-size: 1.2em;
+        opacity: 0.9;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
+    .heart {
+        position: absolute;
+        color: white;
+        font-size: 20px;
+        animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+        from { transform: translateY(100vh); opacity: 1; }
+        to { transform: translateY(-10vh); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="typeText"></h1>
+    <p>
+        You are my happiness, my peace, and my forever.<br>
+        Please forgive me. I love you endlessly. 💖
+    </p>
+    <div class="names">
+        — From Anish to Adu ❤️
+    </div>
+</div>
+
+<!-- Background music -->
+<audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3e7d7f6d2c.mp3?filename=romantic-piano-110997.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* Typewriter effect */
+const text = "I LOVE YOU ADU ❤️";
+let index = 0;
+
+function typeWriter() {
+    if (index < text.length) {
+        document.getElementById("typeText").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100);
+    }
+}
+typeWriter();
+
+/* Floating hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
