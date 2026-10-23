@@ -1,98 +1,837 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adu I Love You ❤️</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff0f1">
+  <title>For My Sunflower 🌻</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink: #790a3a;
+      --deep-pink: #a51e42;
+      --wine: #702536;
+      --text: #96616b;
+      --cream: #fff1f0;
+      --red: #c62845;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
-        margin: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: white;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      font-family: "DM Sans", sans-serif;
+      color: var(--text);
+      background: linear-gradient(
+        135deg,
+        #fff3f3 0%,
+        #f9d9df 45%,
+        #f0c5d0 75%,
+        #fff0f1 100%
+      );
     }
 
-    .card {
-        background: rgba(255, 255, 255, 0.15);
-        padding: 40px;
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        max-width: 400px;
-        animation: fadeIn 2s ease;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 15% 25%, #f4b8c688, transparent 45%),
+        radial-gradient(ellipse at 85% 75%, #d95b7950, transparent 45%);
     }
 
-    h1 {
-        font-size: 2.2em;
-        margin-bottom: 10px;
-    }
-
-    p {
-        font-size: 1.2em;
-        line-height: 1.6;
+    /* Floating hearts behind every screen */
+    #heart-background {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+      contain: strict;
     }
 
     .heart {
-        font-size: 40px;
-        animation: beat 1s infinite;
+      position: absolute;
+      bottom: -60px;
+      left: var(--left);
+      color: var(--heart-color);
+      font-size: var(--size);
+      opacity: 0;
+      line-height: 1;
+      filter: blur(var(--blur, 0px));
+      animation: floatHeart var(--duration) linear var(--delay) infinite;
+      will-change: transform, opacity;
+      user-select: none;
     }
 
-    @keyframes beat {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.2); }
-        100% { transform: scale(1); }
+    @keyframes floatHeart {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(.8);
+        opacity: 0;
+      }
+      12% {
+        opacity: var(--opacity);
+      }
+      50% {
+        transform: translate3d(var(--drift), -55vh, 0) rotate(18deg) scale(1);
+      }
+      88% {
+        opacity: var(--opacity);
+      }
+      100% {
+        transform: translate3d(calc(var(--drift) * -.5), -115vh, 0)
+          rotate(-18deg) scale(.85);
+        opacity: 0;
+      }
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+    .sparkle {
+      position: absolute;
+      left: var(--left);
+      top: var(--top);
+      color: #fff;
+      font-size: var(--size);
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out var(--delay) infinite;
     }
 
-    button {
-        margin-top: 25px;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 30px;
-        background: white;
-        color: #ff4b5c;
-        font-size: 16px;
-        cursor: pointer;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+    @keyframes twinkle {
+      0%, 100% { opacity: .1; transform: scale(.7); }
+      50% { opacity: .8; transform: scale(1.2); }
     }
 
-    button:hover {
-        background: #ffe6ea;
+    main {
+      position: relative;
+      z-index: 1;
     }
-</style>
+
+    .screen {
+      display: none;
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100%;
+      padding: 36px 20px;
+      padding-top: max(36px, env(safe-area-inset-top));
+      padding-bottom: max(36px, env(safe-area-inset-bottom));
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      animation: appear .7s ease both;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      color: var(--deep-pink);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      line-height: 1.8;
+      text-transform: uppercase;
+    }
+
+    .sunflower {
+      margin: 24px 0;
+      font-size: clamp(68px, 12vw, 100px);
+      filter: drop-shadow(0 8px 18px #d9577544);
+      animation: flowerFloat 3.5s ease-in-out infinite;
+    }
+
+    @keyframes flowerFloat {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-9px) rotate(3deg); }
+    }
+
+    h1, h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--wine);
+      font-weight: 600;
+    }
+
+    h1 {
+      margin: 28px 0 22px;
+      font-size: clamp(48px, 8vw, 104px);
+      line-height: 1.08;
+      letter-spacing: -2.5px;
+      overflow-wrap: anywhere;
+    }
+
+    h1 span {
+      color: var(--deep-pink);
+    }
+
+    h2 {
+      margin: 18px 0;
+      font-size: clamp(32px, 5.5vw, 54px);
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      max-width: 420px;
+      margin: 0 auto 34px;
+      color: #966b7a;
+      font-size: clamp(15px, 2vw, 19px);
+      line-height: 1.9;
+    }
+
+    .footer-note {
+      margin-top: 25px;
+      color: #a77a89;
+      font-size: 13px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 52px;
+      max-width: 100%;
+      padding: 15px 28px;
+      border: 0;
+      border-radius: 100px;
+      background: linear-gradient(135deg, #d95775, #8f1638);
+      box-shadow: 0 12px 28px #a51e4233;
+      color: white;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 30px #a51e4255;
+    }
+
+    .button:active {
+      transform: scale(.97);
+    }
+
+    .button.secondary {
+      background: #fff9f8e8;
+      color: var(--wine);
+      border: 1px solid #e7b6c0;
+      box-shadow: none;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    .panel {
+      width: min(100%, 720px);
+      padding: clamp(24px, 5vw, 48px);
+      border: 1px solid #ffffffc9;
+      border-radius: 28px;
+      background: #fffaf9b8;
+      box-shadow: 0 20px 70px #a51e4218;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .birthday-message {
+      margin: 22px auto 8px;
+      max-width: 540px;
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .tiny-hearts {
+      margin: 20px 0;
+      color: var(--deep-pink);
+      font-size: 24px;
+      letter-spacing: 9px;
+    }
+
+    /* Photo gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      width: min(100%, 820px);
+      margin: 24px auto 12px;
+    }
+
+    .photo-card {
+      padding: 8px;
+      border: 1px solid #fff;
+      border-radius: 18px;
+      background: #fffaf9e8;
+      box-shadow: 0 12px 35px #a975921c;
+      transform: rotate(var(--rotation));
+      transition: transform .25s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-5px) rotate(0);
+    }
+
+    .photo-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #f8dce8;
+    }
+
+    .photo-caption {
+      padding: 10px 3px 4px;
+      color: var(--wine);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 14px;
+    }
+
+    /* Love letter */
+    .letter {
+      width: min(100%, 680px);
+      text-align: left;
+    }
+
+    .letter h2 {
+      text-align: center;
+    }
+
+    .letter p {
+      margin: 17px 0;
+      font-size: 16px;
+      line-height: 2;
+      overflow-wrap: anywhere;
+    }
+
+    .signature {
+      margin-top: 25px !important;
+      color: var(--deep-pink);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 23px !important;
+      text-align: right;
+    }
+
+    /* Proposal */
+    .proposal-flower {
+      margin: 12px 0;
+      font-size: 64px;
+      animation: flowerFloat 3.5s ease-in-out infinite;
+    }
+
+    .proposal-question {
+      max-width: 760px;
+      font-size: clamp(34px, 7vw, 66px);
+    }
+
+    .response {
+      min-height: 30px;
+      margin-top: 24px;
+      color: var(--deep-pink);
+      font-weight: 600;
+      line-height: 1.8;
+    }
+
+    .small-print {
+      margin-top: 18px;
+      color: #a77a89;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    /* Final "I love you, Oju" reveal */
+    #love-final {
+      background:
+        radial-gradient(ellipse at top, #ffd7df99, transparent 60%),
+        linear-gradient(135deg, #fff0ed, #f6d6df, #f3cbd3);
+    }
+
+    .final-flower {
+      font-size: clamp(65px, 13vw, 100px);
+      margin: 20px 0;
+      filter: drop-shadow(0 8px 22px #d9577550);
+      animation: flowerFloat 3s ease-in-out infinite;
+    }
+
+    .love-title {
+      font-size: clamp(46px, 9vw, 84px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin: 16px 0 24px;
+    }
+
+    .love-title span {
+      color: #a51e42;
+      text-shadow: 0 4px 24px #e76a8840;
+    }
+
+    .love-message {
+      max-width: 480px;
+      margin: 0 auto 25px;
+      color: #874b60;
+      font-size: clamp(15px, 3.5vw, 18px);
+      line-height: 1.9;
+    }
+
+    .final-hearts {
+      margin: 20px 0;
+      font-size: clamp(22px, 5vw, 34px);
+      letter-spacing: 8px;
+      animation: heartPulse 1.8s ease-in-out infinite;
+    }
+
+    .final-signature {
+      color: #a51e42;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      margin: 12px 0 28px;
+    }
+
+    @keyframes heartPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    /* Mobile-friendly layout */
+    @media (max-width: 600px) {
+      .screen {
+        padding-left: 17px;
+        padding-right: 17px;
+      }
+
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 2.5px;
+      }
+
+      h1 {
+        margin: 24px 0 18px;
+        letter-spacing: -1.5px;
+      }
+
+      .subtitle {
+        max-width: 330px;
+        margin-bottom: 27px;
+      }
+
+      .panel {
+        border-radius: 23px;
+        padding: 25px 19px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+      }
+
+      .photo-caption {
+        font-size: 12px;
+      }
+
+      .button-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .button-row .button {
+        width: min(100%, 320px);
+      }
+
+      .letter p {
+        font-size: 15px;
+      }
+
+      .heart {
+        filter: blur(0);
+      }
+    }
+
+    @media (max-width: 350px) {
+      .screen {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      h1 {
+        font-size: 45px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .panel {
+        padding: 22px 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <div id="heart-background" aria-hidden="true"></div>
 
-<div class="card">
-    <div class="heart">❤️</div>
-    <h1>I’m Really Sorry</h1>
-    <p>
-        I know I made a mistake and hurt you.<br>
-        But my love for you is real, deep, and only yours.<br><br>
-        You are the best part of my day,  
-        and I never want to be the reason for your sadness.<br><br>
-        Please forgive me, my love. 💖
-    </p>
+  <main>
+    <!-- SCREEN 1: WELCOME -->
+    <section class="screen active" id="welcome">
+      <p class="eyebrow">A little universe made for you</p>
+      <div class="sunflower" aria-hidden="true">🌻</div>
+      <p class="eyebrow">Happy birthday, my</p>
+      <h1>Sunflower<span>.</span></h1>
 
-    <button onclick="goToLove()">Tap here</button>
-</div>
+      <p class="subtitle">
+        For the girl who makes ordinary days feel a little more golden. ❤️
+      </p>
 
-<script>
-function goToLove() {
-    window.location.href = "love.html";
-}
-</script>
+      <button class="button" onclick="goTo('birthday')">
+        Open your surprise ♡
+      </button>
 
+      
+    </section>
+
+    <!-- SCREEN 2: BIRTHDAY WISH -->
+    <section class="screen" id="birthday">
+      <div class="panel">
+        <p class="eyebrow">Today is all about you</p>
+        <div class="sunflower" aria-hidden="true">🌻</div>
+        <h2>Happy Birthday, Sunshine!</h2>
+
+        <p class="birthday-message">
+          If I could gift you one thing in this world, it would be the ability
+          to see yourself through my eyes. Then you'd understand just how
+          special, beautiful, and precious you are to me. ❤️
+        </p>
+
+        <div class="tiny-hearts" aria-hidden="true">♡ ♡ ♡</div>
+
+        <p class="birthday-message">
+          May your smile always shine, your dreams find their way to you,
+          and your heart always have a reason to be happy.
+        </p>
+
+        <div class="button-row">
+          <button class="button" onclick="goTo('memories')">
+            Our little memories 📸
+          </button>
+          <button class="button secondary" onclick="goTo('welcome')">
+            Go back
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: PHOTOS -->
+    <section class="screen" id="memories">
+      <p class="eyebrow">A FEW OF MY FAVOURITE FRAMES</p>
+      <h2>You, in every little detail ♡</h2>
+
+      <p class="subtitle">
+        Some pictures just make me smile a little longer. ❤️
+      </p>
+
+      <div class="gallery">
+        <div class="photo-card" style="--rotation: -2deg">
+          <img src="E:\oju birthday\photos\sunflower-1.jpg.jpeg"
+               alt="A favourite memory together" loading="lazy">
+          
+        </div>
+
+        <div class="photo-card" style="--rotation: 2deg">
+          <img src="E:\oju birthday\photos\sunflower-2.jpg.jpeg"
+               alt="A special memory" loading="lazy">
+          
+        </div>
+
+        <div class="photo-card" style="--rotation: -1deg">
+          <img src="E:\oju birthday\photos\sunflower-3.jpg.jpeg"
+               alt="Another lovely memory" loading="lazy">
+        </div>
+
+         
+      </div>
+
+      <div class="button-row">
+        <button class="button" onclick="goTo('letter')">
+          One little letter 💌
+        </button>
+        <button class="button secondary" onclick="goTo('birthday')">
+          Go back
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: LOVE LETTER -->
+    <section class="screen" id="letter">
+      <div class="panel letter">
+        <p class="eyebrow" style="text-align:center">
+          From my heart to yours
+        </p>
+
+        <h2>Ek chhoti si baat… 💌</h2>
+
+        <p>Happy Birthday, Sunflower. ❤️</p>
+
+        <p>
+          Tu mazhya life madhli ek khup special vyakti ahes. Tujhyashi bollyavar
+          divas kasa hi asla tari chehryavar smile yete. Tujha hasna, tujhya
+          chhotya chhotya goshti, ani tu jashi ahes na… te sagla mala khup
+          avadta.
+        </p>
+
+        <p>
+          Kadhikadhi kahi lok aaplya life madhye yetat ani nakalat sagla
+          thoda sundar karun jatat. Majhyasathi tu tashi ahes. Tula nehmi
+          anandi baghaycha aahe, tuzhi swapna purna hotana baghaychi aahet,
+          ani tujhya chehryavarach hasu asach kayam rahava asa vatata.
+        </p>
+
+        <p>
+          Tujha ha birthday khup special javo, tula bharpur prem, happiness
+          ani sundar moments milot. Ani ho, tu majhi favourite Sunflower ahes. 🌻
+        </p>
+
+        <p>
+          Thank you for being you. Never forget how special you are. ❤️
+        </p>
+
+        <p class="signature">Always wishing the best for you ♡</p>
+      </div>
+
+      <div class="button-row">
+        <button class="button" onclick="goTo('proposal')">
+          There's one more thing… ❤️
+        </button>
+        <button class="button secondary" onclick="goTo('memories')">
+          Go back
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: PROPOSAL -->
+    <section class="screen" id="proposal">
+      <div class="panel">
+        <p class="eyebrow">One question, just for you</p>
+        <div class="proposal-flower" aria-hidden="true">🌹</div>
+
+        <h2 class="proposal-question">
+          Oju, will you be my wife? ❤️
+        </h2>
+
+        <p class="subtitle" style="margin-top:20px">
+          One little question from the bottom of my heart.
+          
+        </p>
+
+        <div class="button-row">
+          <button class="button" onclick="answerYes()">
+            Yes, Bala! ♡
+          </button>
+          <button class="button secondary" onclick="answerMaybe()">
+            Let me think 🌷
+          </button>
+        </div>
+
+        <p class="response" id="response" aria-live="polite"></p>
+
+        
+      </div>
+
+      <div class="button-row">
+        <button class="button secondary" onclick="goTo('letter')">
+          Read my letter again
+        </button>
+      </div>
+    </section>
+
+    <!-- FINAL SCREEN: I LOVE YOU, OJU -->
+    <section class="screen" id="love-final">
+      <div class="final-hearts" aria-hidden="true">❤️ 💗 ❤️</div>
+
+      <p class="eyebrow">My heart has something to say...</p>
+
+      <div class="final-flower" aria-hidden="true">🌹</div>
+
+      <h1 class="love-title">
+        I Love You,<br>
+        <span>Oju ❤️</span>
+      </h1>
+
+      <p class="love-message">
+        You just made me the happiest person ever. 🥹❤️
+        <br><br>
+        If I could choose a thousand times,
+        I'd still choose you, Oju.
+        <br><br>
+        Here's to more smiles, silly moments,
+        endless conversations, and beautiful memories together.
+        You are my favourite person, my happiness,
+        and my little sunflower. 🌻
+      </p>
+
+      <div class="final-hearts" aria-hidden="true">💕 ♡ 💕</div>
+
+      <p class="final-signature">
+        Forever a little more in love with you. ❤️
+      </p>
+
+      
+    </section>
+  </main>
+
+  <script>
+    const heartBackground = document.getElementById("heart-background");
+
+    const heartSymbols = ["♡", "♥", "💕", "❤", "💗"];
+    const heartColors = [
+      "#c62845",
+      "#df4968",
+      "#ed8196",
+      "#a92342",
+      "#f3a6b5",
+      "#ffffff"
+    ];
+
+    // Create background hearts.
+    function createHeart() {
+      const heart = document.createElement("span");
+      heart.className = "heart";
+
+      heart.textContent =
+        heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+
+      heart.style.setProperty("--left", Math.random() * 100 + "%");
+      heart.style.setProperty("--size", (12 + Math.random() * 24) + "px");
+      heart.style.setProperty("--duration", (11 + Math.random() * 13) + "s");
+      heart.style.setProperty("--delay", (-Math.random() * 22) + "s");
+      heart.style.setProperty("--drift", (-45 + Math.random() * 90) + "px");
+      heart.style.setProperty(
+        "--opacity",
+        (0.18 + Math.random() * 0.3).toFixed(2)
+      );
+      heart.style.setProperty(
+        "--heart-color",
+        heartColors[Math.floor(Math.random() * heartColors.length)]
+      );
+      heart.style.setProperty(
+        "--blur",
+        Math.random() > 0.7 ? "1px" : "0px"
+      );
+
+      heartBackground.appendChild(heart);
+    }
+
+    // Keep the background lightweight on mobile.
+    for (let i = 0; i < 24; i++) {
+      createHeart();
+    }
+
+    // Add subtle sparkles.
+    for (let i = 0; i < 14; i++) {
+      const sparkle = document.createElement("span");
+      sparkle.className = "sparkle";
+      sparkle.textContent = "✦";
+
+      sparkle.style.setProperty("--left", Math.random() * 100 + "%");
+      sparkle.style.setProperty("--top", Math.random() * 100 + "%");
+      sparkle.style.setProperty("--size", (7 + Math.random() * 10) + "px");
+      sparkle.style.setProperty("--duration", (2 + Math.random() * 4) + "s");
+      sparkle.style.setProperty("--delay", (-Math.random() * 5) + "s");
+
+      heartBackground.appendChild(sparkle);
+    }
+
+    // Switch screens and move to the top.
+    function goTo(screenId) {
+      const current = document.querySelector(".screen.active");
+      const next = document.getElementById(screenId);
+
+      if (!next) return;
+
+      if (current) current.classList.remove("active");
+      next.classList.add("active");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // YES opens the separate final screen.
+    function answerYes() {
+      goTo("love-final");
+      celebrateHearts();
+    }
+
+    // Give her space to decide.
+    function answerMaybe() {
+      document.getElementById("response").textContent =
+        "This option is not available, You have to choose Yes";
+    }
+
+    // Add a burst of hearts for the final reveal.
+    function celebrateHearts() {
+      for (let i = 0; i < 18; i++) {
+        const heart = document.createElement("span");
+        heart.className = "heart";
+
+        heart.textContent = ["💗", "♡", "💕", "❤️", "🌹"][
+          Math.floor(Math.random() * 5)
+        ];
+
+        heart.style.setProperty("--left", (15 + Math.random() * 70) + "%");
+        heart.style.setProperty("--size", (18 + Math.random() * 22) + "px");
+        heart.style.setProperty("--duration", (5 + Math.random() * 4) + "s");
+        heart.style.setProperty("--delay", "0s");
+        heart.style.setProperty("--drift", (-100 + Math.random() * 200) + "px");
+        heart.style.setProperty("--opacity", "0.9");
+        heart.style.setProperty("--heart-color", "#c62845");
+        heart.style.setProperty("--blur", "0px");
+
+        heartBackground.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 10000);
+      }
+    }
+  </script>
 </body>
 </html>
